@@ -1,0 +1,66 @@
+/* Publish Blog Card with Glow */
+.publish-blog {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 30px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 30px rgba(69, 85, 224, 0.4); /* Greenish glow */
+  text-align: center;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+
+
+.publish-blog h1 {
+  margin-bottom: 20px;
+  font-size: 28px;
+  color: #333;
+}
+
+.publish-blog form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.publish-blog input[type="text"],
+.publish-blog textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border 0.3s, box-shadow 0.3s;
+}
+
+/* Add glow to inputs on focus */
+.publish-blog input[type="text"]:focus,
+.publish-blog textarea:focus {
+  border-color: #4caf50;
+  outline: none;
+  box-shadow: 0 0 10px rgba(105, 160, 238, 0.6);
+}
+
+.publish-blog textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.publish-blog button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+/* Button glow */
+.publish-blog button:hover {
+  background-color: #45a049;
+  box-shadow: 0 0 15px rgba(168, 80, 195, 0.7);
+}

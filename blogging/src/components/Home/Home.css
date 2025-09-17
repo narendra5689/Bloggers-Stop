@@ -1,0 +1,40 @@
+.home-container {
+  padding: 20px;
+  align-items: center;
+}
+
+.blog-list {
+  display: flex;
+  flex-direction: column;   /* stack cards vertically */
+  align-items: center;      /* center cards horizontally */
+ 
+  height: 400px;
+        /* vertical gap between cards */
+  margin-top: 20px;
+}
+.blog-list a {
+  display: block;
+  align-items: center;
+  height: 500px;
+    width: 60%;
+  flex-wrap: wrap;       
+  justify-content: center; 
+    padding: 10px;       
+
+}
+
+
+@media (min-width: 1200px) {
+  .blog-list {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  }
+}
+@media (max-width: 600px) {
+  .home-container {
+    padding: 10px;
+  }
+  .blog-list {
+    gap: 20px;
+    padding: 0 10px;
+  }
+}
