@@ -1,10 +1,12 @@
+/* src/components/Auth/SignupPage.css */
+
 .auth-card {
-  width: 320px;
-  margin: 60px auto;
-  padding: 25px;
-  background: white;
+  width: 350px;
+  margin: 50px auto;
+  padding: 30px;
   border-radius: 12px;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
   text-align: center;
 }
 
@@ -14,33 +16,47 @@
 }
 
 .auth-card input {
-  width: 90%;
-  padding: 10px;
-  margin: 8px 0;
-  border: 1px solid #ddd;
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
   border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
 }
 
 .auth-card button {
-  width: 95%;
-  padding: 10px;
+  width: 100%;
+  padding: 12px;
   margin-top: 10px;
-  background: #ff4b2b;
-  color: white;
-  border: none;
   border-radius: 8px;
+  border: none;
+  background-color: #e63946; /* red-ish color */
+  color: white;
+  font-size: 1rem;
   cursor: pointer;
-  font-weight: bold;
+  transition: background-color 0.3s;
 }
 
 .auth-card button:hover {
-  background: #e8431f;
+  background-color: #d62828;
+}
+
+.oauth-section {
+  margin-top: 20px;
 }
 
 .google-btn {
-  background: #4285f4;
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #4285f4;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .google-btn:hover {
-  background: #357ae8;
+  background-color: #357ae8;
 }

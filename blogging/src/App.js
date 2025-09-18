@@ -1,6 +1,6 @@
 // src/App.jsx
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 import { auth } from "./firebase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import Home from "./components/Home/Home";
@@ -10,14 +10,19 @@ import FullBlog from "./components/FullBlog/FullBlog";
 import BlogCard from "./components/BlogCard";
 import LoginPage from "./components/LoginPage/LoginPage";
 import SignupPage from "./components/SignupPage/SignupPage";
+import SplashScreen from "./components/SplashScreen/SplashScreen";
 import "./App.css";
+
 function App() {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      setLoading(false);
     });
+    return () => unsubscribe();
   }, []);
 
   const handleLogout = async () => {
@@ -25,14 +30,16 @@ function App() {
     setUser(null);
   };
 
+  if (loading) return <p>Loading...</p>;
+
   return (
     <BrowserRouter>
+      {/* Navbar */}
       <nav className="navbar">
         {user ? (
           <>
             <Link to="/">Home</Link>
             <Link to="/PublishBlog">Create Blog</Link>
-
             <div className="dropdown">
               <span className="profile-link">Profile ▾</span>
               <div className="dropdown-content">
@@ -49,14 +56,25 @@ function App() {
         )}
       </nav>
 
+      {/* Routes */}
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/BlogCard" element={<BlogCard />} />
-        <Route path="/PublishBlog" element={<PublishBlog />} />
-        <Route path="/Profile" element={<Profile />} />
-        <Route path="/FullBlog/:id" element={<FullBlog />} />
-        <Route path="/login" element={<LoginPage onLogin={() => setUser(auth.currentUser)} />} />
-        <Route path="/signup" element={<SignupPage onSignup={() => setUser(auth.currentUser)} />} />
+        {user ? (
+          <>
+            <Route path="/" element={<Home />} />
+            <Route path="/BlogCard" element={<BlogCard />} />
+            <Route path="/PublishBlog" element={<PublishBlog />} />
+            <Route path="/Profile" element={<Profile />} />
+            <Route path="/FullBlog/:id" element={<FullBlog />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </>
+        ) : (
+          <>
+            <Route path="/" element={<SplashScreen />} />
+            <Route path="/login" element={<LoginPage onLogin={() => setUser(auth.currentUser)} />} />
+            <Route path="/signup" element={<SignupPage onSignup={() => setUser(auth.currentUser)} />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </>
+        )}
       </Routes>
     </BrowserRouter>
   );

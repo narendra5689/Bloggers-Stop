@@ -1,18 +1,34 @@
 // src/components/Auth/SignupPage.jsx
 import React, { useState } from "react";
-import { auth } from "../../firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import "./SignupPage.css";
 import PropTypes from "prop-types";
+import { auth } from "../../firebase";
+import {
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
+import "./SignupPage.css";
 
 const SignupPage = ({ onSignup }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  // Email/password signup
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, email, password);
+      onSignup(); // callback to update user state in App.jsx
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  // Google OAuth signup/login
+  const handleGoogleSignup = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      await signInWithPopup(auth, provider);
       onSignup();
     } catch (error) {
       alert(error.message);
@@ -39,10 +55,19 @@ const SignupPage = ({ onSignup }) => {
         />
         <button type="submit">Signup</button>
       </form>
+
+      <div className="oauth-section">
+        <p>Or signup with:</p>
+        <button className="google-btn" onClick={handleGoogleSignup}>
+          Continue with Google
+        </button>
+      </div>
     </div>
   );
 };
+
 SignupPage.propTypes = {
   onSignup: PropTypes.func.isRequired,
 };
+
 export default SignupPage;

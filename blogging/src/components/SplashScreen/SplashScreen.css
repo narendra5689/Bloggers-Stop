@@ -1,0 +1,21 @@
+.splash-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 60px); /* minus navbar height */
+  text-align: center;
+  padding: 20px;
+}
+
+.splash-container h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.splash-container p {
+  font-size: 1.2rem;
+  color: #555;
+  margin: 5px 0;
+}
