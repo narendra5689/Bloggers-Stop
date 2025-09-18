@@ -1,73 +1,79 @@
 .blog-card {
-  background-color: #ffffff;
-  border-radius: 12px;
-  padding: 30px;
-  min-height: 300px;
   display: flex;
-  flex-direction: column;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  flex-direction: row;
+  background-color: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  padding: 25px 30px;
+  min-height: 250px;
+  width: 600px;
   transition: transform 0.3s, box-shadow 0.3s;
   cursor: pointer;
 }
 
 .blog-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 
-.blog-card h2 {
-  font-size: 1.8rem;
-  color: #333333;
+/* Left content */
+.blog-card-content {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-right: 20px;
+}
+.blog-card-link {
+  text-decoration: none; /* remove default link underline */
+  color: inherit;        /* inherit text color */
+}
+.blog-card-content .title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.blog-card-content .desc {
+  font-size: 1rem;
+  color: #555;
   margin-bottom: 15px;
+  line-height: 1.5;
 }
 
-.blog-card p {
-  font-size: 1.1rem;
-  color: #555555;
-  line-height: 1.6;
-  margin-bottom: 15px; /* space before footer */
-  overflow: visible;   /* ✅ show all text */
-  flex-grow: 1;        /* allow text to expand */
+.blog-card-content .author {
+  font-size: 0.85rem;
+  color: #999;
+  margin-bottom: 10px;
 }
 
-.blog-card small {
-  color: #888888;
+.read-more-btn {
+  align-self: flex-start;
+  padding: 8px 16px;
+  border: none;
+  background-color: #e53935;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
   font-size: 0.9rem;
-  margin-top: auto;    /* push to bottom */
-  text-align: right;
+  transition: background-color 0.3s;
+}
+
+.read-more-btn:hover {
+  background-color: #d32f2f;
+}
+
+/* Image on right, border wraps exactly around the image */
+.blog-card-image {
+  max-width: 230px;       /* maximum width */
+  max-height: 250px;      /* maximum height */
+  border-radius: 12px;    /* well-shaped corners */
+  border: 2px solid #659ac5;
+  object-fit: contain;     /* no cropping */
+  margin-left: 20px;
+  align-self: center;
   display: block;
-}
-
-/* Responsive adjustments */
-@media (max-width: 1024px) {
-  .blog-card {
-    padding: 25px;
-  }
-  .blog-card h2 {
-    font-size: 1.6rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .blog-card {
-    padding: 20px;
-  }
-  .blog-card h2 {
-    font-size: 1.5rem;
-  }
-  .blog-card p {
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .blog-card {
-    padding: 15px;
-  }
-  .blog-card h2 {
-    font-size: 1.3rem;
-  }
-  .blog-card p {
-    font-size: 0.95rem;
-  }
 }

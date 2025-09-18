@@ -55,11 +55,11 @@ const FullBlog = () => {
           ...doc.data(),
           showMenu: false,
         }));
-        setComments(
-          commentsList.toSorted(
-            (a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0)
-          )
+        // Sort comments by createdAt descending
+        commentsList.sort(
+          (a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0)
         );
+        setComments(commentsList);
       } catch (error) {
         console.error("Error fetching comments: ", error);
       }
@@ -67,19 +67,17 @@ const FullBlog = () => {
 
     fetchBlog();
     fetchComments();
+
     return () => unsubscribe();
   }, [id]);
 
-  // Handle like toggle
+  // Like toggle
   const handleLike = async () => {
     if (!user) return alert("You must log in to like!");
     try {
       const blogRef = doc(db, "blogs", id);
-
-      // Check if user already liked
       const userLikes = blog.likedBy || [];
-      let updatedLikes;
-      let updatedLikedBy;
+      let updatedLikes, updatedLikedBy;
 
       if (userLikes.includes(user.uid)) {
         // Unlike
@@ -91,22 +89,14 @@ const FullBlog = () => {
         updatedLikedBy = [...userLikes, user.uid];
       }
 
-      await updateDoc(blogRef, {
-        likes: updatedLikes,
-        likedBy: updatedLikedBy,
-      });
-
-      setBlog((prev) => ({
-        ...prev,
-        likes: updatedLikes,
-        likedBy: updatedLikedBy,
-      }));
+      await updateDoc(blogRef, { likes: updatedLikes, likedBy: updatedLikedBy });
+      setBlog((prev) => ({ ...prev, likes: updatedLikes, likedBy: updatedLikedBy }));
     } catch (error) {
-      console.error("Error updating likes: ", error);
+      console.error("Error updating likes:", error);
     }
   };
 
-  // Add new comment
+  // Add comment
   const handleAddComment = async (e) => {
     e.preventDefault();
     if (!user) return alert("You must log in to comment!");
@@ -119,17 +109,19 @@ const FullBlog = () => {
         createdAt: serverTimestamp(),
         userId: user.uid,
       });
+
       setComments((prev) => [
         { id: docRef.id, text: newComment, userId: user.uid, createdAt: { toDate: () => new Date() }, showMenu: false },
         ...prev,
       ]);
+
       setNewComment("");
     } catch (error) {
-      console.error("Error adding comment: ", error);
+      console.error("Error adding comment:", error);
     }
   };
 
-  // Toggle 3-dot menu
+  // Toggle comment menu
   const toggleMenu = (commentId) => {
     setComments((prev) =>
       prev.map((c) =>
@@ -170,6 +162,7 @@ const FullBlog = () => {
   return (
     <div className="full-blog">
       <h1>{blog.title}</h1>
+      {blog.imgUrl && <img src={blog.imgUrl} alt={blog.title} className="blog-image" />}
       <p>{blog.content}</p>
       <p><strong>Author:</strong> {blog.author}</p>
       <p><strong>Created at:</strong> {blog.createdAt?.toDate().toLocaleString() || "No date"}</p>
@@ -208,20 +201,12 @@ const FullBlog = () => {
                     : "Just now"}
                 </small>
 
-                {/* 3-dot menu for user's own comment */}
                 {user?.uid === comment.userId && (
                   <div className="comment-actions">
                     <button
                       type="button"
                       className="dots"
-                      aria-label="Show comment actions"
                       onClick={() => toggleMenu(comment.id)}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter" || e.key === " ") {
-                          e.preventDefault();
-                          toggleMenu(comment.id);
-                        }
-                      }}
                     >
                       ⋮
                     </button>
