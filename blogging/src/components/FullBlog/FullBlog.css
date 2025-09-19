@@ -16,6 +16,11 @@
   margin-bottom: 1rem;
   color: #222;
 }
+.full-blog img{
+  max-width: 100%;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+}
 
 .full-blog p {
   font-size: 1.1rem;
