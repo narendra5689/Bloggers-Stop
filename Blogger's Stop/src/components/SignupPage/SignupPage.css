@@ -71,3 +71,46 @@
   transform: scale(1.05);
   background: linear-gradient(135deg, #ff9800, #ffb74d);
 }
+@media (max-width: 768px) {
+  .auth-card {
+    margin: 80px 20px 30px;
+    padding: 25px 20px;
+  }
+
+  .auth-card h2 {
+    font-size: 1.8rem;
+  }
+
+  .auth-card input {
+    font-size: 15px;
+    padding: 10px 12px;
+  }
+
+  .auth-card button,
+  .google-btn {
+    font-size: 15px;
+    padding: 10px 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-card {
+    margin: 60px 15px 20px;
+    padding: 20px 15px;
+  }
+
+  .auth-card h2 {
+    font-size: 1.5rem;
+  }
+
+  .auth-card input {
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+
+  .auth-card button,
+  .google-btn {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+}

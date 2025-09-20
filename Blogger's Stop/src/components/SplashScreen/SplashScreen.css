@@ -167,6 +167,27 @@
     transform: translateY(0);
   }
 }
+@media (max-width: 768px) {
+  .logo {
+    font-size: 2rem;
+  }
+  .loader {
+    width: 50px;
+    height: 50px;
+    border-width: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    font-size: 1.5rem;
+  }
+  .loader {
+    width: 40px;
+    height: 40px;
+    border-width: 4px;
+  }
+}
 
 /* Staggered Letter Animation */
 .splash-title span:nth-child(1) { animation-delay: 0.1s; }

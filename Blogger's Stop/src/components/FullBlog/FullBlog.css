@@ -1,9 +1,11 @@
+/* Container for full blog */
 .full-blog-container {
   max-width: 900px;
   margin: 80px auto 40px;
   padding: 0 20px;
 }
 
+/* Full blog card */
 .full-blog {
   background: linear-gradient(145deg, #ffe7f0, #e0f7ff);
   padding: 30px;
@@ -13,15 +15,19 @@
   flex-direction: column;
 }
 
+/* Blog image */
 .blog-image {
-  width: 300px;
-  height: 300px;
-  margin: 20px 0;
-  border-radius: 12px;
-  object-fit: cover; 
-  float: left; 
+  max-width: 300px;      /* Maximum width */
+  width: 100%;           /* Scale down on smaller screens */
+  height: auto;          /* Maintain aspect ratio */
+  border-radius: 12px;   /* Rounded corners */
+  border: 2px solid #ccc; /* Optional border */
+  display: block;
+  margin: 20px auto;     /* Center on mobile */
+  object-fit: contain;   /* Show full image without cropping */
 }
 
+/* Likes section */
 .likes-section {
   display: flex;
   align-items: center;
@@ -33,7 +39,7 @@
   padding: 8px 14px;
   border: none;
   border-radius: 25px;
-  background: linear-gradient(135deg, #ff416c, #ff4b2b); /* vibrant gradient */
+  background: linear-gradient(135deg, #ff416c, #ff4b2b);
   cursor: pointer;
   font-weight: bold;
   color: #fff;
@@ -45,6 +51,7 @@
   background: linear-gradient(135deg, #ff4b2b, #ff416c);
 }
 
+/* Comments section */
 .comments-section {
   margin-top: 30px;
 }
@@ -78,6 +85,7 @@
   background: linear-gradient(135deg, #ff4b2b, #ff416c);
 }
 
+/* Comment list */
 .comment-list {
   list-style: none;
   padding: 0;
@@ -113,7 +121,7 @@
   border-radius: 23px;
 }
 
-
+/* Popup menu */
 .menu-popup {
   position: absolute;
   top: 35px;
@@ -136,7 +144,7 @@
   transition: background 0.2s;
 }
 
-
+/* Edit comment */
 .edit-comment {
   display: flex;
   gap: 10px;
@@ -163,10 +171,12 @@
   background: linear-gradient(135deg, #ff4b2b, #ff416c);
 }
 
+/* ---------------- Mobile Responsiveness ---------------- */
+
+/* Tablets & small screens */
 @media (max-width: 765px) {
   .full-blog-container {
-    padding: 120px 10px 20px;
-     /* Adjust top padding to clear navbar */
+    padding: 120px 10px 20px; /* Top padding to clear navbar */
   }
 
   .full-blog {
@@ -174,24 +184,57 @@
   }
 
   .blog-image {
-    float: none;
-    display: block;
+    max-width: 230px;
+    width: 100%;
+    height: auto;
     margin: 20px auto;
-    width: 200px; /* Keep same size as desktop */
-    height: 200px;
-    object-fit: cover;
+    object-fit: contain;
   }
 
   .likes-section,
   .comment-form,
   .comment {
-    flex-direction: column; /* Ensure stacked layout for small screens */
+    flex-direction: column;
     align-items: flex-start;
   }
 
   .comment-form input {
     width: 100%;
   }
+
+  .comment-actions {
+    top: 8px;
+    right: 8px;
+  }
+
+  .dots {
+    font-size: 16px;
+  }
 }
 
+/* Small phones */
+@media (max-width: 480px) {
+  .full-blog-container {
+    padding: 140px 10px 15px;
+  }
 
+  .full-blog {
+    padding: 15px;
+  }
+
+  .blog-image {
+    max-width: 180px;
+    width: 100%;
+    height: auto;
+    margin: 10px auto;
+  }
+
+  .comment-actions {
+    top: 6px;
+    right: 6px;
+  }
+
+  .dots {
+    font-size: 14px;
+  }
+}

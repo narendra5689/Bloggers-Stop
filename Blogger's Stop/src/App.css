@@ -136,16 +136,23 @@
 }
 
 @media (max-width: 480px) {
-  .navbar {
-    padding: 10px 12px;
+  .app-container {
+    padding: 15px;
   }
 
-  .navbar a, .profile-link {
-    font-size: 14px;
-    margin: 5px 0;
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+  }
+
+  input, textarea, select, button {
+    font-size: 0.95rem;
+    padding: 8px 12px;
   }
 }
-
 /* Dropdown animations */
 @keyframes fadeIn {
   from {
