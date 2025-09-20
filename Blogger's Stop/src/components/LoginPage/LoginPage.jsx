@@ -69,21 +69,12 @@ const LoginPage = ({ onLogin }) => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button
-            type="button"
+          <span
             className="password-toggle"
-            aria-label={showPassword ? "Hide password" : "Show password"}
             onClick={() => setShowPassword(!showPassword)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                setShowPassword(!showPassword);
-              }
-            }}
-            tabIndex={0}
-            style={{ background: "none", border: "none", padding: 0, cursor: "pointer" }}
           >
             {showPassword ? <FaEye /> : <FaEyeSlash />}
-          </button>
+          </span>
         </div>
         <button type="submit">Login</button>
       </form>
