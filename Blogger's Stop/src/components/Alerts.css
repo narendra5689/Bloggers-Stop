@@ -1,0 +1,26 @@
+.alert-popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, #1fd1f9, #0b78e3);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 25px;
+  font-weight: 600;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.4s ease;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.alert-popup.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.alert-popup.hide {
+  opacity: 0;
+  transform: translateY(-20px);
+}

@@ -1,0 +1,73 @@
+.auth-card {
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 30px;
+  border-radius: 15px;
+  background: linear-gradient(145deg, #ffe7f0, #e0f7ff);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.auth-card h2 {
+  margin-bottom: 20px;
+}
+
+.auth-card input {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+}
+
+.password-input {
+  position: relative;
+}
+
+.password-input .toggle-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #555;
+}
+
+.auth-card button {
+  padding: 10px 15px;
+  border-radius: 25px;
+  border: none;
+  background: linear-gradient(135deg, #42a5f5, #478ed1);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.3s;
+  margin-bottom: 15px;
+}
+
+.auth-card button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #478ed1, #42a5f5);
+}
+
+.oauth-section {
+  margin-top: 20px;
+}
+
+.google-btn {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(135deg, #ffb74d, #ff9800);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.3s;
+}
+
+.google-btn:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #ff9800, #ffb74d);
+}

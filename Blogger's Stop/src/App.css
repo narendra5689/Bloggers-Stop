@@ -4,6 +4,7 @@
   justify-content: flex-end;
   align-items: center;
   padding: 12px 25px;
+  margin-top: 10px;
   width: 90%;
   border-radius: 10px;
   background: linear-gradient(135deg, #779fe4 0%, #a97bda 100%);
@@ -17,6 +18,26 @@
   font-family: "Poppins", sans-serif;
   transition: top 0.3s ease, box-shadow 0.3s ease;
 }
+/* User name on navbar */
+.navbar-left {
+  margin-right: auto; /* push links to the right */
+  font-weight: 600;
+  font-size: 16px;
+  color: #fff;
+}
+
+.navbar-left .user-name {
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.navbar-left .user-name:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
 
 /* Navbar links */
 .navbar a, .profile-link {
@@ -72,6 +93,7 @@
   pointer-events: auto;
 
   transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition-delay: 0.3s; /* delay before fade-out */
 }
 
 /* Hover dropdown */
@@ -80,11 +102,6 @@
   visibility: visible;
   pointer-events: auto;
   transition-delay: 0s; /* appear immediately on hover */
-}
-
-/* Keep dropdown visible for 3s after mouse leaves */
-.dropdown-content {
-  transition-delay: 0.3s; /* delay before fade-out */
 }
 
 /* Dropdown items */

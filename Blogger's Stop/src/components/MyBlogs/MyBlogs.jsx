@@ -11,16 +11,16 @@ import {
   doc,
 } from "firebase/firestore";
 import "./MyBlogs.css";
-import Alerts from "../Alerts.jsx"; // ✅ make sure path is correct
+import Alerts from "../Alerts.jsx"; // Make sure this path is correct
 
 const IMGBB_API_KEY = "6bbb7079ddf89b91d1130794534ab65e";
 
 export default function MyBlogs() {
   const [blogs, setBlogs] = useState([]);
   const [user, setUser] = useState(null);
-  const [alertMessage, setAlertMessage] = useState(null); // ✅ alert state
+  const [alertMessage, setAlertMessage] = useState(null);
 
-
+  // Listen for user auth
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
       if (currentUser) setUser(currentUser);
@@ -28,6 +28,7 @@ export default function MyBlogs() {
     return () => unsubscribe();
   }, []);
 
+  // Fetch user blogs
   useEffect(() => {
     const fetchBlogs = async () => {
       if (!user) return;
@@ -42,6 +43,7 @@ export default function MyBlogs() {
     fetchBlogs();
   }, [user]);
 
+  // Upload image to imgbb
   const uploadToImgbb = async (file) => {
     if (!file) return null;
     const formData = new FormData();
@@ -54,26 +56,28 @@ export default function MyBlogs() {
     return data.data.url;
   };
 
-
+  // Update blog in Firebase
   const updateBlog = async (id, updatedData) => {
     const blogRef = doc(db, "blogs", id);
     await updateDoc(blogRef, updatedData);
     setBlogs((prev) =>
       prev.map((b) => (b.id === id ? { ...b, ...updatedData } : b))
     );
-    setAlertMessage("Blog updated successfully!"); // ✅ set alert
+    setAlertMessage("Blog edited successfully!"); // ✅ show popup
   };
 
+  // Delete blog
   const deleteBlog = async (id) => {
     await deleteDoc(doc(db, "blogs", id));
     setBlogs((prev) => prev.filter((b) => b.id !== id));
-    setAlertMessage("Blog deleted successfully!"); // ✅ set alert
+    setAlertMessage("Blog deleted successfully!"); // ✅ show popup
   };
 
+  // Single blog card
   const BlogCard = ({ blog }) => {
     const [editing, setEditing] = useState(false);
-    const [title, setTitle] = useState(blog.title);
-    const [description, setDescription] = useState(blog.description);
+    const [title, setTitle] = useState(blog.title || "");
+    const [description, setDescription] = useState(blog.description || "");
     const [imageFile, setImageFile] = useState(null);
     const [previewImage, setPreviewImage] = useState(blog.imgUrl);
     const cardRef = useRef(null);
@@ -83,12 +87,14 @@ export default function MyBlogs() {
       if (imageFile) {
         imageUrl = await uploadToImgbb(imageFile);
       }
+
       const updatedData = {
-        title,
-        description,
+        title: title || blog.title,
+        description: description || blog.description || "",
         imgUrl: imageUrl,
-        author: blog.author,
+        author: blog.author || "Unknown",
       };
+
       await updateBlog(blog.id, updatedData);
       setPreviewImage(imageUrl);
       setEditing(false);
@@ -117,18 +123,13 @@ export default function MyBlogs() {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
-
             <input
               type="file"
               accept="image/*"
               onChange={(e) => {
                 const file = e.target.files[0];
                 setImageFile(file);
-                if (file) {
-                  setPreviewImage(URL.createObjectURL(file));
-                } else {
-                  setPreviewImage(blog.imgUrl);
-                }
+                setPreviewImage(file ? URL.createObjectURL(file) : blog.imgUrl);
               }}
             />
             <div className="btn-row">
@@ -136,8 +137,8 @@ export default function MyBlogs() {
               <button
                 onClick={() => {
                   setEditing(false);
-                  setTitle(blog.title);
-                  setDescription(blog.description);
+                  setTitle(blog.title || "");
+                  setDescription(blog.description || "");
                   setPreviewImage(blog.imgUrl);
                   setImageFile(null);
                 }}
@@ -169,10 +170,7 @@ export default function MyBlogs() {
   return (
     <div className="myblogs-container">
       <h2>My Blogs</h2>
-
-      {/* ✅ Alert here */}
       {alertMessage && <Alerts message={alertMessage} duration={3000} />}
-
       <div className="blog-grid">
         {blogs.length > 0 ? (
           blogs.map((blog) => <BlogCard key={blog.id} blog={blog} />)

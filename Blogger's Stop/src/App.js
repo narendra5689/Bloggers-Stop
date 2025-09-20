@@ -22,7 +22,6 @@ function App() {
   const [showNavbar, setShowNavbar] = useState(true);
   let lastScrollY = 0;
 
-  // Listen to auth state
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -31,17 +30,12 @@ function App() {
     return () => unsubscribe();
   }, []);
 
-  // Navbar hide/show on scroll
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > lastScrollY) {
-        setShowNavbar(false); // scroll down → hide navbar
-      } else {
-        setShowNavbar(true); // scroll up → show navbar
-      }
+      if (window.scrollY > lastScrollY) setShowNavbar(false);
+      else setShowNavbar(true);
       lastScrollY = window.scrollY;
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -59,24 +53,34 @@ function App() {
         className="navbar"
         style={{ top: showNavbar ? "0" : "-80px", transition: "top 0.3s ease" }}
       >
-        {user ? (
-          <>
-            <Link to="/">Home</Link>
-            <Link to="/PublishBlog">Create Blog</Link>
-            <div className="dropdown">
-              <span className="profile-link">Profile ▾</span>
-              <div className="dropdown-content">
-                <Link to="/MyBlogs">My Blogs</Link>
-                <button onClick={handleLogout}>Logout</button>
+        <div className="navbar-left">
+          {user && (
+            <span className="user-name">
+              Hello, {user.displayName ? user.displayName : user.email.split("@")[0]}
+            </span>
+          )}
+        </div>
+
+        <div className="navbar-right">
+          {user ? (
+            <>
+              <Link to="/">Home</Link>
+              <Link to="/PublishBlog">Create Blog</Link>
+              <div className="dropdown">
+                <span className="profile-link">Profile ▾</span>
+                <div className="dropdown-content">
+                  <Link to="/MyBlogs">My Blogs</Link>
+                  <button onClick={handleLogout}>Logout</button>
+                </div>
               </div>
-            </div>
-          </>
-        ) : (
-          <>
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Signup</Link>
-          </>
-        )}
+            </>
+          ) : (
+            <>
+              <Link to="/login">Login</Link>
+              <Link to="/signup">Signup</Link>
+            </>
+          )}
+        </div>
       </nav>
 
       <Routes>
