@@ -20,7 +20,7 @@ const BlogCard = ({
           {/* Read More Button */}
           <button className="read-more-btn">Read More</button>
         </div>
-        {imgUrl && <img src={imgUrl} alt={title} className="blog-card-image" />}
+        {imgUrl && <img src={imgUrl} alt={title} loading="lazy" className="blog-card-image" />}
       </div>
     </Link>
   );
