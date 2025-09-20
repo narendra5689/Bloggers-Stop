@@ -1,3 +1,4 @@
+// src/components/FullBlog/FullBlog.jsx
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { auth, db } from "../../firebase";
@@ -22,13 +23,17 @@ const FullBlog = () => {
   const [user, setUser] = useState(auth.currentUser);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((currentUser) => setUser(currentUser));
+    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+      setUser(currentUser);
+    });
 
     const fetchBlog = async () => {
       try {
         const docRef = doc(db, "blogs", id);
         const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) setBlog({ id: docSnap.id, ...docSnap.data() });
+        if (docSnap.exists()) {
+          setBlog({ id: docSnap.id, ...docSnap.data() });
+        }
       } catch (error) {
         console.error("Error fetching blog: ", error);
       } finally {
@@ -47,7 +52,9 @@ const FullBlog = () => {
           isEditing: false,
           editText: doc.data().text,
         }));
-        commentsList.sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+        commentsList.sort(
+          (a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0)
+        );
         setComments(commentsList);
       } catch (error) {
         console.error("Error fetching comments: ", error);
@@ -64,10 +71,15 @@ const FullBlog = () => {
     try {
       const blogRef = doc(db, "blogs", id);
       const userLikes = blog.likedBy || [];
-      const updatedLikedBy = userLikes.includes(user.uid)
-        ? userLikes.filter((uid) => uid !== user.uid)
-        : [...userLikes, user.uid];
-      const updatedLikes = updatedLikedBy.length;
+      let updatedLikes, updatedLikedBy;
+
+      if (userLikes.includes(user.uid)) {
+        updatedLikes = (blog.likes || 1) - 1;
+        updatedLikedBy = userLikes.filter((uid) => uid !== user.uid);
+      } else {
+        updatedLikes = (blog.likes || 0) + 1;
+        updatedLikedBy = [...userLikes, user.uid];
+      }
 
       await updateDoc(blogRef, { likes: updatedLikes, likedBy: updatedLikedBy });
       setBlog((prev) => ({ ...prev, likes: updatedLikes, likedBy: updatedLikedBy }));
@@ -78,7 +90,9 @@ const FullBlog = () => {
 
   const handleAddComment = async (e) => {
     e.preventDefault();
-    if (!user || !newComment.trim()) return;
+    if (!user) return alert("You must log in to comment!");
+    if (!newComment.trim()) return;
+
     try {
       const commentsRef = collection(db, "blogs", id, "comments");
       const docRef = await addDoc(commentsRef, {
@@ -86,6 +100,7 @@ const FullBlog = () => {
         createdAt: serverTimestamp(),
         userId: user.uid,
       });
+
       setComments((prev) => [
         {
           id: docRef.id,
@@ -104,12 +119,13 @@ const FullBlog = () => {
     }
   };
 
-  const toggleMenu = (commentId) =>
+  const toggleMenu = (commentId) => {
     setComments((prev) =>
       prev.map((c) =>
         c.id === commentId ? { ...c, showMenu: !c.showMenu } : { ...c, showMenu: false }
       )
     );
+  };
 
   const handleDeleteComment = async (commentId) => {
     try {
@@ -214,8 +230,10 @@ const FullBlog = () => {
                   )}
 
                   {user?.uid === comment.userId && !comment.isEditing && (
-                    <div className="comment-actions-container">
-                      <button className="dots" onClick={() => toggleMenu(comment.id)}>⋮</button>
+                    <div className="comment-actions">
+                      <button type="button" className="dots" onClick={() => toggleMenu(comment.id)}>
+                        ⋮
+                      </button>
                       {comment.showMenu && (
                         <div className="menu-popup">
                           <button
