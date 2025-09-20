@@ -7,7 +7,7 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 // Components
 import Home from "./components/Home/Home";
 import PublishBlog from "./components/PublishBlog/PublishBlog";
-import MyBlogs from "./components/MyBlogs/MyBlogs.jsx";
+import MyBlogs from "./components/MyBlogs/MyBlogs";
 import FullBlog from "./components/FullBlog/FullBlog";
 import LoginPage from "./components/LoginPage/LoginPage";
 import SignupPage from "./components/SignupPage/SignupPage";
@@ -19,6 +19,8 @@ import "./App.css";
 function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showNavbar, setShowNavbar] = useState(true);
+  let lastScrollY = 0;
 
   // Listen to auth state
   useEffect(() => {
@@ -27,6 +29,21 @@ function App() {
       setLoading(false);
     });
     return () => unsubscribe();
+  }, []);
+
+  // Navbar hide/show on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > lastScrollY) {
+        setShowNavbar(false); // scroll down → hide navbar
+      } else {
+        setShowNavbar(true); // scroll up → show navbar
+      }
+      lastScrollY = window.scrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const handleLogout = async () => {
@@ -38,8 +55,10 @@ function App() {
 
   return (
     <BrowserRouter>
-      {/* Navbar */}
-      <nav className="navbar">
+      <nav
+        className="navbar"
+        style={{ top: showNavbar ? "0" : "-80px", transition: "top 0.3s ease" }}
+      >
         {user ? (
           <>
             <Link to="/">Home</Link>
@@ -60,7 +79,6 @@ function App() {
         )}
       </nav>
 
-      {/* Routes */}
       <Routes>
         {user ? (
           <>

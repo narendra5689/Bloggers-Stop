@@ -1,13 +1,14 @@
-// src/components/Auth/LoginPage.jsx
 import React, { useState } from "react";
 import { auth, provider } from "../../firebase";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import "./LoginPage.css";
 import PropTypes from "prop-types";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const LoginPage = ({ onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleEmailLogin = async (e) => {
     e.preventDefault();
@@ -39,13 +40,22 @@ const LoginPage = ({ onLogin }) => {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+        <div className="password-wrapper">
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        <span
+        className="password-toggle"
+        onClick={() => setShowPassword(!showPassword)}
+        >
+        {showPassword ? <FaEye /> : <FaEyeSlash />}
+        </span>
+
+        </div>
         <button type="submit">Login</button>
       </form>
       <button className="google-btn" onClick={handleGoogleLogin}>
@@ -54,6 +64,7 @@ const LoginPage = ({ onLogin }) => {
     </div>
   );
 };
+
 LoginPage.propTypes = {
   onLogin: PropTypes.func.isRequired,
 };

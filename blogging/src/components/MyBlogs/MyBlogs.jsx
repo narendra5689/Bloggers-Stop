@@ -117,11 +117,7 @@ export default function MyBlogs() {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
-            {previewImage && (
-              <div className="image-preview">
-                <img src={previewImage} alt="Preview" />
-              </div>
-            )}
+
             <input
               type="file"
               accept="image/*"

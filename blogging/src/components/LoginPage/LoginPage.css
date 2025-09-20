@@ -1,46 +1,162 @@
 .auth-card {
-  width: 320px;
-  margin: 60px auto;
-  padding: 25px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+  width: 380px;
+  margin: 80px auto;
+  padding: 40px 30px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(247, 249, 255, 0.6));
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  box-shadow: 0px 10px 35px rgba(0, 0, 0, 0.15);
   text-align: center;
+  font-family: "Poppins", sans-serif;
+  animation: fadeInScale 0.8s ease-in-out;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.auth-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.2);
 }
 
 .auth-card h2 {
-  margin-bottom: 20px;
-  color: #333;
+  margin-bottom: 25px;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #2a2a72;
+  background: linear-gradient(135deg, #779fe4, #a97bda);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0px 2px 8px rgba(119, 159, 228, 0.4);
 }
 
 .auth-card input {
-  width: 90%;
-  padding: 10px;
-  margin: 8px 0;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  width: 100%;
+  padding: 12px 14px;
+  margin: 10px 0;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 12px;
+  outline: none;
+  font-size: 15px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #1a1a1a;
+  transition: all 0.3s ease;
 }
 
-.auth-card button {
-  width: 95%;
-  padding: 10px;
-  margin-top: 10px;
-  background: #ff4b2b;
+.auth-card input::placeholder {
+  color: rgba(119, 159, 228, 0.7);
+  font-weight: 500;
+}
+
+.auth-card input:focus {
+  border-color: #779fe4;
+  box-shadow: 0 0 10px rgba(119, 159, 228, 0.4);
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Password wrapper with eye toggle */
+.password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 40px;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #779fe4;
+  font-size: 1.2rem;
+  transition: color 0.3s;
+}
+
+.password-toggle:hover {
+  color: #a97bda;
+}
+
+/* Buttons */
+.auth-card button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  margin-top: 12px;
+  background: linear-gradient(135deg, #779fe4, #a97bda);
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.3s ease;
 }
 
-.auth-card button:hover {
-  background: #e8431f;
+.auth-card button[type="submit"]:hover {
+  background: linear-gradient(135deg, #5a8de2, #946ed4);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(119, 159, 228, 0.4);
 }
 
 .google-btn {
   background: #4285f4;
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 12px;
+  padding: 12px 0;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.google-btn::before {
+  content: "🌐";
+  font-size: 18px;
 }
 
 .google-btn:hover {
   background: #357ae8;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(53, 122, 232, 0.4);
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Links */
+.auth-card .links {
+  margin-top: 15px;
+  font-size: 0.9rem;
+}
+
+.auth-card .links a {
+  color: #779fe4;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.auth-card .links a:hover {
+  color: #a97bda;
+}
+
+/* Responsive */
+@media (max-width: 420px) {
+  .auth-card {
+    width: 90%;
+    padding: 30px 20px;
+    margin: 60px auto;
+  }
 }
