@@ -181,10 +181,11 @@
 
   .full-blog {
     padding: 20px;
+    border-radius: 12px;
   }
 
   .blog-image {
-    max-width: 230px;
+    max-width: 100%;
     width: 100%;
     height: auto;
     margin: 20px auto;
@@ -210,6 +211,18 @@
   .dots {
     font-size: 16px;
   }
+
+  .full-blog h1,
+  .full-blog h2,
+  .full-blog h3 {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+
+  .full-blog p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
 }
 
 /* Small phones */
@@ -219,14 +232,46 @@
   }
 
   .full-blog {
-    padding: 15px;
+    padding: 12px;
+    border-radius: 10px;
   }
 
   .blog-image {
-    max-width: 180px;
+    max-width: 100%;
     width: 100%;
     height: auto;
     margin: 10px auto;
+  }
+
+  .likes-section {
+    gap: 8px;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .like-btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  .comment-form {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .comment-form input,
+  .comment-form button {
+    width: 100%;
+  }
+
+  .comment {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  .comment small {
+    font-size: 0.75rem;
   }
 
   .comment-actions {
@@ -236,5 +281,30 @@
 
   .dots {
     font-size: 14px;
+  }
+
+  .menu-popup {
+    right: 4px;
+    min-width: 120px;
+  }
+
+  .menu-popup button {
+    font-size: 0.85rem;
+    padding: 6px 10px;
+  }
+
+  .full-blog h1,
+  .full-blog h2,
+  .full-blog h3 {
+    font-size: 1rem;
+    line-height: 1.3;
+    word-wrap: break-word;
+    text-align: center;
+  }
+
+  .full-blog p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    word-wrap: break-word;
   }
 }

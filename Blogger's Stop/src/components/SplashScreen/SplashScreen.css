@@ -15,6 +15,8 @@
   overflow: hidden;
   position: relative;
   animation: fadeIn 1.2s ease-in-out;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 /* Floating Background Circles */
@@ -70,6 +72,7 @@
   animation: scaleUp 1.2s ease-in-out;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   z-index: 2;
+  max-width: 90%;
 }
 
 .splash-content:hover {
@@ -121,6 +124,8 @@
   font-size: 0.9rem;
   color: #555;
   opacity: 0.8;
+  text-align: center;
+  width: 100%;
 }
 
 /* Animations */
@@ -167,25 +172,77 @@
     transform: translateY(0);
   }
 }
+
+/* Responsive Design */
+
+/* Tablet */
 @media (max-width: 768px) {
-  .logo {
-    font-size: 2rem;
+  .splash-content {
+    padding: 35px 40px;
+    border-radius: 18px;
   }
-  .loader {
-    width: 50px;
-    height: 50px;
-    border-width: 5px;
+
+  .splash-title {
+    font-size: 2.2rem;
   }
+
+  .splash-subtitle {
+    font-size: 1.2rem;
+  }
+
+  .splash-info {
+    font-size: 1rem;
+  }
+
+  .circle1 { width: 150px; height: 150px; }
+  .circle2 { width: 120px; height: 120px; }
+  .circle3 { width: 80px; height: 80px; }
 }
 
+/* Mobile */
 @media (max-width: 480px) {
-  .logo {
+  .splash-content {
+    padding: 25px 20px;
+    border-radius: 15px;
+  }
+
+  .splash-title {
+    font-size: 1.8rem;
+  }
+
+  .splash-subtitle {
+    font-size: 1rem;
+  }
+
+  .splash-info {
+    font-size: 0.9rem;
+  }
+
+  .circle1 { width: 100px; height: 100px; }
+  .circle2 { width: 80px; height: 80px; }
+  .circle3 { width: 60px; height: 60px; }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+  .splash-content {
+    padding: 18px 15px;
+  }
+
+  .splash-title {
     font-size: 1.5rem;
   }
-  .loader {
-    width: 40px;
-    height: 40px;
-    border-width: 4px;
+
+  .splash-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .splash-info {
+    font-size: 0.8rem;
+  }
+
+  .splash-footer {
+    font-size: 0.75rem;
   }
 }
 
@@ -198,3 +255,4 @@
 .splash-title span:nth-child(6) { animation-delay: 0.6s; }
 .splash-title span:nth-child(7) { animation-delay: 0.7s; }
 .splash-title span:nth-child(8) { animation-delay: 0.8s; }
+.splash-title span:nth-child(9) { animation-delay: 0.9s; }

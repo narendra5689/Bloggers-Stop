@@ -6,10 +6,12 @@
   background: linear-gradient(145deg, #ffe7f0, #e0f7ff);
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
   text-align: center;
+  width: 90%; /* allow shrink for small screens */
 }
 
 .auth-card h2 {
   margin-bottom: 20px;
+  color: #333;
 }
 
 .auth-card input {
@@ -36,7 +38,8 @@
 }
 
 .auth-card button {
-  padding: 10px 15px;
+  width: 100%; /* ensure full width on small devices */
+  padding: 12px 15px;
   border-radius: 25px;
   border: none;
   background: linear-gradient(135deg, #42a5f5, #478ed1);
@@ -57,7 +60,8 @@
 }
 
 .google-btn {
-  padding: 10px 15px;
+  width: 100%; /* full width button for mobile */
+  padding: 12px 15px;
   border: none;
   border-radius: 25px;
   background: linear-gradient(135deg, #ffb74d, #ff9800);
@@ -71,14 +75,17 @@
   transform: scale(1.05);
   background: linear-gradient(135deg, #ff9800, #ffb74d);
 }
+
+/* Tablet view */
 @media (max-width: 768px) {
   .auth-card {
     margin: 80px 20px 30px;
     padding: 25px 20px;
+    width: 95%;
   }
 
   .auth-card h2 {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
 
   .auth-card input {
@@ -89,18 +96,20 @@
   .auth-card button,
   .google-btn {
     font-size: 15px;
-    padding: 10px 18px;
+    padding: 10px;
   }
 }
 
+/* Mobile view */
 @media (max-width: 480px) {
   .auth-card {
     margin: 60px 15px 20px;
     padding: 20px 15px;
+    width: 100%;
   }
 
   .auth-card h2 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 
   .auth-card input {
@@ -111,6 +120,29 @@
   .auth-card button,
   .google-btn {
     font-size: 14px;
-    padding: 8px 12px;
+    padding: 10px;
+  }
+}
+
+/* Extra small devices (like 320px screens) */
+@media (max-width: 360px) {
+  .auth-card {
+    margin: 40px 10px 15px;
+    padding: 15px 10px;
+  }
+
+  .auth-card h2 {
+    font-size: 1.1rem;
+  }
+
+  .auth-card input {
+    font-size: 13px;
+    padding: 7px 9px;
+  }
+
+  .auth-card button,
+  .google-btn {
+    font-size: 13px;
+    padding: 8px;
   }
 }

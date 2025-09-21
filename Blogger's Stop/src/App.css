@@ -1,29 +1,35 @@
 /* Navbar container */
 .navbar {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between; /* space between left & right */
   align-items: center;
   padding: 12px 25px;
-  margin-top: 10px;
   width: 90%;
   border-radius: 10px;
   background: linear-gradient(135deg, #779fe4 0%, #a97bda 100%);
   box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.15);
-  flex-wrap: wrap;
-  position: fixed;  /* fixed at top */
+  position: fixed;  
   top: 0;
   left: 50%;
   transform: translateX(-50%);
   z-index: 9999;
   font-family: "Poppins", sans-serif;
+  flex-wrap: wrap;
   transition: top 0.3s ease, box-shadow 0.3s ease;
 }
-/* User name on navbar */
+
+/* Left side: username or logo */
 .navbar-left {
-  margin-right: auto; /* push links to the right */
+  display: flex;
+  align-items: center;
+  margin-right: auto;
   font-weight: 600;
   font-size: 16px;
   color: #fff;
+  max-width: 50%; /* prevent overflowing */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .navbar-left .user-name {
@@ -38,36 +44,29 @@
   transform: scale(1.05);
 }
 
+/* Right side: links/buttons */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* spacing between buttons/links */
+  flex-wrap: wrap;
+}
 
-/* Navbar links */
-.navbar a, .profile-link {
+/* Navbar links & buttons */
+.navbar a, .profile-link, .nav-btn {
   color: #ffffff;
   text-decoration: none;
-  margin: 0 18px;
   font-weight: 600;
   font-size: 16px;
-  position: relative;
-  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 8px;
   transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
-.navbar a::after {
-  content: "";
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  width: 0%;
-  height: 2px;
-  background: #ffcc00;
-  transition: width 0.3s ease-in-out;
-}
-
-.navbar a:hover {
+.navbar a:hover, .profile-link:hover, .nav-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
   color: #ffcc00;
-}
-
-.navbar a:hover::after {
-  width: 100%;
 }
 
 /* Dropdown container */
@@ -80,31 +79,23 @@
 .dropdown-content {
   position: absolute;
   right: 0;
-  top: 40px; /* dropdown below navbar */
+  top: 40px;
   background: linear-gradient(135deg, #6c63ff 0%, #48c6ef 100%);
-  min-width: 180px;
+  min-width: 160px;
   box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
   border-radius: 10px;
   overflow: hidden;
-  z-index: 10000;
-
   opacity: 0;
   visibility: hidden;
   pointer-events: auto;
-
   transition: opacity 0.3s ease, visibility 0.3s ease;
-  transition-delay: 0.3s; /* delay before fade-out */
 }
 
-/* Hover dropdown */
 .dropdown:hover .dropdown-content {
   opacity: 1;
   visibility: visible;
-  pointer-events: auto;
-  transition-delay: 0s; /* appear immediately on hover */
 }
 
-/* Dropdown items */
 .dropdown-content button, .dropdown-content a {
   width: 100%;
   padding: 12px 15px;
@@ -122,63 +113,63 @@
   background: rgba(255, 255, 255, 0.15);
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .navbar {
-    flex-direction: column; 
-    align-items: flex-end;
-    padding: 15px;
-  }
-
-  .navbar a, .profile-link {
-    margin: 8px 0;
-  }
-}
-
-@media (max-width: 480px) {
-  .app-container {
-    padding: 15px;
-  }
-
-  h1 {
-    font-size: 1.5rem;
-  }
-
-  h2 {
-    font-size: 1.3rem;
-  }
-
-  input, textarea, select, button {
-    font-size: 0.95rem;
-    padding: 8px 12px;
-  }
-}
-/* Dropdown animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-}
-
 /* Shadow on scroll */
 .navbar.scrolled {
   box-shadow: 0px 12px 35px rgba(0, 0, 0, 0.2);
   background: linear-gradient(135deg, #5a8de2 0%, #946ed4 100%);
 }
 
+/* ----------------- MOBILE RESPONSIVENESS ----------------- */
+@media (max-width: 1024px) {
+  .navbar-left {
+    max-width: 40%;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px 20px;
+  }
+
+  .navbar-left {
+    max-width: 100%;
+    margin-bottom: 10px;
+    text-align: left;
+  }
+
+  .navbar-right {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .navbar a, .profile-link, .nav-btn {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 12px 15px;
+  }
+
+  .navbar-left {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .navbar a, .profile-link, .nav-btn {
+    font-size: 13px;
+    padding: 6px 10px;
+    margin-bottom: 5px;
+  }
+
+  /* Ensure dropdown content fits small screens */
+  .dropdown-content {
+    min-width: 140px;
+  }
+}

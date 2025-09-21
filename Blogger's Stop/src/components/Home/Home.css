@@ -13,7 +13,7 @@
 .search-bar {
   width: 600px;           /* same width as blog cards */
   max-width: 90%;   
-  margin-top: 40px;      /* responsive on smaller screens */
+  margin-top: 40px;      
   padding: 12px 16px;
   font-size: 1rem;
   border-radius: 10px;
@@ -29,7 +29,30 @@
   box-shadow: 0 4px 12px rgba(229, 57, 53, 0.2);
 }
 
+/* Blog list layout */
+.blog-list {
+  align-items: center;
+  display: grid;
+  grid-template-rows: repeat(auto-fit, minmax(280px, 1fr)); /* responsive grid */
+  gap: 20px;
+  width: 100%;
+  justify-content: center;
+  max-width: 1200px; /* keeps blogs centered on large screens */
+}
 
+/* Blog card general styling (optional, if not already in BlogCard.css) */
+.blog-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.blog-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
 
 /* Loading and empty states */
 .loading,
@@ -39,16 +62,40 @@
   color: #555;
 }
 
-/* Responsive adjustments */
+/* ---------------- Responsive adjustments ---------------- */
+
+/* Tablets */
 @media (max-width: 768px) {
-  .search-bar,
-  .blog-list {
+  .search-bar {
     width: 100%;
+    font-size: 1rem;
+  }
+
+  .blog-list {
+    grid-template-rows: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+  }
+
+  .blog-card {
+    padding: 16px;
   }
 }
+
+/* Small phones */
 @media (max-width: 480px) {
   .search-bar {
     font-size: 0.9rem;
     padding: 10px 14px;
+    margin-top: 20px;
   }
-}   
+
+  .blog-list {
+    grid-template-columns: 1fr; /* single column */
+    gap: 14px;
+  }
+
+  .blog-card {
+    padding: 14px;
+    border-radius: 10px;
+  }
+}
