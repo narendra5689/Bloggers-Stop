@@ -44,15 +44,54 @@ const Home = () => {
     fetchBlogs();
   }, []);
 
+  // Utility function to normalize text
+  const normalizeText = (text) => {
+    return text
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/gi, "") // remove quotes, punctuation, special chars
+      .trim();
+  };
+
   // Filter blogs based on debounced search term
   useEffect(() => {
-    const results = blogs.filter(
-      (blog) =>
-        blog.title.toLowerCase().includes(debouncedTerm.toLowerCase()) ||
-        blog.content.toLowerCase().includes(debouncedTerm.toLowerCase())
-    );
+    const normalizedTerm = normalizeText(debouncedTerm);
+
+    const results = blogs.filter((blog) => {
+      const title = normalizeText(blog.title || "");
+      const content = normalizeText(blog.content || "");
+      const author = normalizeText(blog.author || "");
+
+      return (
+        title.includes(normalizedTerm) ||
+        content.includes(normalizedTerm) ||
+        author.includes(normalizedTerm)
+      );
+    });
+
     setFilteredBlogs(results);
   }, [debouncedTerm, blogs]);
+
+  let content;
+  if (loading) {
+    content = <p className="loading">Loading blogs...</p>;
+  } else if (filteredBlogs.length > 0) {
+    content = (
+      <div className="blog-list">
+        {filteredBlogs.map((blog) => (
+          <BlogCard
+            key={blog.id}
+            id={blog.id} // ← PASS the id here!
+            title={blog.title}
+            description={blog.content.substring(0, 100) + "..."}
+            imgUrl={blog.imgUrl}
+            author={blog.author}
+          />
+        ))}
+      </div>
+    );
+  } else {
+    content = <p>No blogs found.</p>;
+  }
 
   return (
     <div className="home">
@@ -63,25 +102,7 @@ const Home = () => {
         onChange={(e) => setSearchTerm(e.target.value)}
         className="search-bar"
       />
-
-      {loading ? (
-        <p className="loading">Loading blogs...</p>
-      ) : filteredBlogs.length > 0 ? (
-        <div className="blog-list">
-          {filteredBlogs.map((blog) => (
-            <BlogCard
-              key={blog.id}
-              id={blog.id} // ← PASS the id here!
-              title={blog.title}
-              description={blog.content.substring(0, 100) + "..."}
-              imgUrl={blog.imgUrl}
-              author={blog.author}
-            />
-          ))}
-        </div>
-      ) : (
-        <p>No blogs found.</p>
-      )}
+      {content}
     </div>
   );
 };
