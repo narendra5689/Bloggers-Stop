@@ -67,12 +67,12 @@
 /* Tablets */
 @media (max-width: 768px) {
   .search-bar {
-    width: 100%;
-    font-size: 1rem;
+    font-size: 0.95rem;
+    margin-top: 85px;
   }
 
   .blog-list {
-    grid-template-rows: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-rows: repeat(auto-fit, minmax(220px, 1fr));
     gap: 16px;
   }
 
@@ -83,19 +83,26 @@
 
 /* Small phones */
 @media (max-width: 480px) {
+  .home {
+    padding: 15px 10px; /* reduce padding */
+  }
+
   .search-bar {
     font-size: 0.9rem;
-    padding: 10px 14px;
-    margin-top: 20px;
+    padding: 10px 12px;
+    margin-top: 95px;
   }
 
   .blog-list {
-    grid-template-columns: 1fr; /* single column */
+    grid-template-columns: 1fr; /* single column on small devices */
+    justify-items: center;       /* center each card */
     gap: 14px;
   }
 
   .blog-card {
     padding: 14px;
+    width: 100%;
+    max-width: 350px; /* ensures it fits mobile screens */
     border-radius: 10px;
   }
 }

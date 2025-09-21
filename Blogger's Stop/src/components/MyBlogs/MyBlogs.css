@@ -196,8 +196,13 @@
   transform: scale(1.05);
 }
 
-/* Tablet screens */
+/* ---------------- Tablet screens ---------------- */
 @media (max-width: 768px) {
+  .myblogs-container h2 {
+    padding-top: 70px; /* push down heading for visibility */
+    font-size: 1.7rem;
+  }
+
   .myblogs-container .blog-grid {
     grid-template-rows: 1fr;
   }
@@ -221,8 +226,13 @@
   }
 }
 
-/* Small mobile screens */
+/* ---------------- Small mobile screens ---------------- */
 @media (max-width: 480px) {
+  .myblogs-container h2 {
+    padding-top: 70px; /* push further down for small screens */
+    font-size: 1.5rem;
+  }
+
   .myblogs-container .blog-card {
     padding: 12px;
   }

@@ -1,8 +1,6 @@
-/* src/components/PublishBlog/PublishBlog.css */
-
 .publish-blog {
   max-width: 700px;
-  margin: 80px auto;
+  margin: 100px auto; /* increased top margin for visibility */
   padding: 30px 20px;
   background: linear-gradient(135deg, #ffe7f0, #e0f7ff);
   border-radius: 15px;
@@ -111,11 +109,11 @@
   100% { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
-/* Tablet screens */
+/* ---------------- Tablet screens ---------------- */
 @media (max-width: 768px) {
   .publish-blog {
-    margin: 60px 15px;
-    padding: 20px;
+    margin: 80px 20px; /* more top space */
+    padding: 25px;
   }
 
   .publish-blog h1 {
@@ -128,15 +126,16 @@
   }
 }
 
-/* Small mobile screens */
+/* ---------------- Small mobile screens ---------------- */
 @media (max-width: 480px) {
   .publish-blog {
-    margin: 40px 10px;
+    margin: 60px 15px; /* increase top margin so heading is visible */
     padding: 15px;
   }
 
   .publish-blog h1 {
     font-size: 1.4rem;
+    margin-bottom: 20px;
   }
 
   .publish-blog input[type="text"],
